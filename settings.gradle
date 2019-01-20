@@ -1,3 +1,5 @@
 rootProject.name = 'springBootPractice'
-include 'rpcclient'
-include 'rpcserver'
+include 'rpc-client'
+include 'rpc-server'
+include 'common'
+
