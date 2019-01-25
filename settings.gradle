@@ -2,4 +2,5 @@ rootProject.name = 'springBootPractice'
 include 'rpc-client'
 include 'rpc-server'
 include 'common'
+include 'ioc'
 

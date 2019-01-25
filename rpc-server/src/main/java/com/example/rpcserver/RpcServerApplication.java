@@ -23,11 +23,11 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 public class RpcServerApplication {
 
-	public static void main(String[] args) throws NoSuchMethodException {
-		SpringApplication.run(RpcServerApplication.class, args);
+    public static void main(String[] args) throws NoSuchMethodException {
+        SpringApplication.run(RpcServerApplication.class, args);
     }
 }
 

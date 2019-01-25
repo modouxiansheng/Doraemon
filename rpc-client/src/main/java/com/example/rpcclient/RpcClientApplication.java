@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class })
 @RestController
 public class RpcClientApplication {
 
@@ -26,7 +26,7 @@ public class RpcClientApplication {
     }
 
     @RequestMapping("/hello")
-    public String getName(){
+    public String getName() {
         return sendMessage.sendName("hh");
     }
 }

@@ -26,9 +26,9 @@ public class RpcClinetFactoryBean implements FactoryBean {
     }
 
     @Override
-    public Object getObject(){
+    public Object getObject() {
         ClassLoader classLoader = classType.getClassLoader();
-        Object object = Proxy.newProxyInstance(classLoader,new Class<?>[]{classType},rpcDynamicPro);
+        Object object = Proxy.newProxyInstance(classLoader, new Class<?>[] { classType }, rpcDynamicPro);
         return object;
     }
 

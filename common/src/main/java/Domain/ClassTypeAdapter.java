@@ -10,7 +10,7 @@ import java.io.IOException;
 public class ClassTypeAdapter extends TypeAdapter<Class<?>> {
     @Override
     public void write(JsonWriter jsonWriter, Class<?> clazz) throws IOException {
-        if(clazz == null){
+        if (clazz == null) {
             jsonWriter.nullValue();
             return;
         }

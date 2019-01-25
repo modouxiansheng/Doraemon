@@ -27,25 +27,25 @@ public class InitRpcConfig implements CommandLineRunner {
     @Autowired
     private ApplicationContext applicationContext;
 
-    public static Map<String,Object> rpcServiceMap = new HashMap<>();
+    public static Map<String, Object> rpcServiceMap = new HashMap<>();
 
     @Override
     public void run(String... args) throws IOException {
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(Service.class);
-        for (Object bean: beansWithAnnotation.values()){
+        for (Object bean : beansWithAnnotation.values()) {
             Class<?> clazz = bean.getClass();
             Class<?>[] interfaces = clazz.getInterfaces();
-            for (Class<?> inter : interfaces){
-                rpcServiceMap.put(getClassName(inter.getName()),bean);
-                log.info("已经加载的服务:"+inter.getName());
+            for (Class<?> inter : interfaces) {
+                rpcServiceMap.put(getClassName(inter.getName()), bean);
+                log.info("已经加载的服务:" + inter.getName());
             }
         }
         startPort();
     }
 
-    private String getClassName(String beanClassName){
-        String className = beanClassName.substring(beanClassName.lastIndexOf(".")+1);
-        className = className.substring(0,1).toLowerCase() + className.substring(1);
+    private String getClassName(String beanClassName) {
+        String className = beanClassName.substring(beanClassName.lastIndexOf(".") + 1);
+        className = className.substring(0, 1).toLowerCase() + className.substring(1);
         return className;
     }
 
@@ -54,7 +54,7 @@ public class InitRpcConfig implements CommandLineRunner {
         ServerSocket server = new ServerSocket(20006);
         Socket client = null;
         boolean f = true;
-        while(f){
+        while (f) {
             //等待客户端的连接，如果没有获取连接
             client = server.accept();
             System.out.println("与客户端连接成功！");
