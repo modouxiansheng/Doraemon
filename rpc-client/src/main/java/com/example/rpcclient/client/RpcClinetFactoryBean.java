@@ -10,7 +10,7 @@ import java.lang.reflect.Proxy;
 /**
  * @program: springBootPractice
  * @description:
- * @author: hu_pf@suixingpay.com
+ * @author: hu_pf
  * @create: 2019-01-18 13:46
  **/
 @Data

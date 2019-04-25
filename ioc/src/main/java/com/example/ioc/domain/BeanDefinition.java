@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @program: springBootPractice
  * @description:
- * @author: hu_pf@suixingpay.com
+ * @author: hu_pf
  * @create: 2019-01-22 20:46
  **/
 @Data

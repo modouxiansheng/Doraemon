@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @program: springBootPractice
  * @description:
- * @author: hu_pf@suixingpay.com
+ * @author: hu_pf
  * @create: 2019-01-17 20:57
  **/
 @Data

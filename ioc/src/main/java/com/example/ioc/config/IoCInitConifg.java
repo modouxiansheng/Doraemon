@@ -18,29 +18,29 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @program: springBootPractice
  * @description:
- * @author: hu_pf@suixingpay.com
+ * @author: hu_pf
  * @create: 2019-01-23 16:44
  **/
 @Component
 @Order(value = 1)
-public class IoCInitConifg implements CommandLineRunner{
+public class IoCInitConifg implements CommandLineRunner {
 
     @Override
-    public void run(String... args){
-        ConcurrentHashMap<String,BeanDefinition> concurrentHashMap = new ConcurrentHashMap<>();
+    public void run(String... args) {
+        ConcurrentHashMap<String, BeanDefinition> concurrentHashMap = new ConcurrentHashMap<>();
         Set<String> beanNameSet = Collections.synchronizedSet(new HashSet<>());
         Reflections reflections = new Reflections();
         //获得项目中所有被MyIoc标记得类
         Set<Class<?>> typesAnnotatedWith = reflections.getTypesAnnotatedWith(MyIoc.class);
         //将其信息初始进自定义容器MyBeanFactory中
-        for (Class clazz : typesAnnotatedWith){
+        for (Class clazz : typesAnnotatedWith) {
             BeanDefinition beanDefinition = new BeanDefinition();
             String className = clazz.getName();
             String superclassName = clazz.getSuperclass().getName();
             beanDefinition.setClassName(className);
             beanDefinition.setSuperNames(superclassName);
             beanDefinition.setAlias(getClassName(className));
-            concurrentHashMap.put(className,beanDefinition);
+            concurrentHashMap.put(className, beanDefinition);
             beanNameSet.add(className);
         }
         MyBeanFactoryImpl.setBeanDineMap(concurrentHashMap);

@@ -23,7 +23,7 @@ import java.util.Set;
 /**
  * @program: springBootPractice
  * @description:
- * @author: hu_pf@suixingpay.com
+ * @author: hu_pf
  * @create: 2019-01-18 11:13
  **/
 public class RpcInitConfig implements ImportBeanDefinitionRegistrar {

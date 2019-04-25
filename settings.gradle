@@ -3,4 +3,5 @@ include 'rpc-client'
 include 'rpc-server'
 include 'common'
 include 'ioc'
+include 'spring-redis'
 

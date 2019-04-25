@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 /**
  * @program: springBootPractice
  * @description:
- * @author: hu_pf@suixingpay.com
+ * @author: hu_pf
  * @create: 2019-01-20 15:45
  **/
 @Service

@@ -1,4 +1,4 @@
-package com.example.ioc;
+package com.example.springredis;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -6,17 +6,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
-public class IocApplicationTests {
-
-    //	@MyIocUse
-    //	private TestService2 testService2;
+@SpringBootTest
+public class SpringRedisApplicationTests {
 
     @Test
     public void contextLoads() {
-
-        System.out.println("1");
     }
 
 }
-

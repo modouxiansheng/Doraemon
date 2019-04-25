@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 /**
  * @program: springBootPractice
  * @description:
- * @author: hu_pf@suixingpay.com
+ * @author: hu_pf
  * @create: 2019-01-18 14:20
  **/
 @Component
