@@ -30,7 +30,7 @@ public class RedisAutoConfiguration {
                 RedisConnectionFactory redisConnectionFactory,MessageListener messageListener) {
             RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
             redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
-            redisMessageListenerContainer.addMessageListener(messageListener,new PatternTopic(""));
+            redisMessageListenerContainer.addMessageListener(messageListener,new PatternTopic("__keyspace@0__:*"));
             return redisMessageListenerContainer;
         }
     }

@@ -11,6 +11,6 @@ public class KeyExpiredEventMessageListener implements MessageListener {
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        log.info("监听失效的redisKey：{},值是:{}", new String(message.getChannel()), new String(message.getBody()));
+        log.info("监听到的信息：{},值是:{}", new String(message.getChannel()), new String(message.getBody()));
     }
 }

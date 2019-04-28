@@ -61,7 +61,7 @@ public class RedisMessageListenerFactory implements BeanFactoryAware, Applicatio
                     if (beanFactory.containsBean(listenerBeanName)) {
                         return;
                     }
-                    container.addMessageListener(messageListener, new PatternTopic("__keyspace@0__:hu*"));
+                    container.addMessageListener(messageListener, new PatternTopic("__keyspace@0__:*"));
                     container.start();
                 }
             }
