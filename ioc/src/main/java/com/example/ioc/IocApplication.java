@@ -1,9 +1,7 @@
 package com.example.ioc;
 
-import com.example.ioc.annotion.MyIoc;
-import com.example.ioc.annotion.MyIocUse;
+
 import com.example.ioc.core.MyBeanFactoryImpl;
-import com.example.ioc.domain.MyIocUseDemo;
 import com.example.ioc.domain.Student;
 import com.example.ioc.domain.User;
 import org.springframework.boot.SpringApplication;
