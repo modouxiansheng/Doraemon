@@ -1,7 +1,18 @@
 package com.example.rpcserver.configuration;
 
+import com.example.rpcserver.rpcHandle.CommonDeal;
 import com.example.rpcserver.rpcHandle.ServerThread;
 import com.example.rpcserver.service.SendMessageImpl;
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -49,18 +60,40 @@ public class InitRpcConfig implements CommandLineRunner {
         return className;
     }
 
-    public void startPort() throws IOException {
-        //服务端在20006端口监听客户端请求的TCP连接
-        ServerSocket server = new ServerSocket(20006);
-        Socket client = null;
-        boolean f = true;
-        while (f) {
-            //等待客户端的连接，如果没有获取连接
-            client = server.accept();
-            System.out.println("与客户端连接成功！");
-            //为每个客户端连接开启一个线程
-            new Thread(new ServerThread(client)).start();
-        }
-        server.close();
+    public void startPort() throws IOException{
+//        //服务端在20006端口监听客户端请求的TCP连接
+//        ServerSocket server = new ServerSocket(20006);
+//        Socket client = null;
+//        boolean f = true;
+//        while (f) {
+//            //等待客户端的连接，如果没有获取连接
+//            client = server.accept();
+//            System.out.println("与客户端连接成功！");
+//            //为每个客户端连接开启一个线程
+//            new Thread(new ServerThread(client)).start();
+//        }
+//        server.close();
+
+        ServerBootstrap serverBootstrap = new ServerBootstrap();
+        NioEventLoopGroup boos = new NioEventLoopGroup();
+        NioEventLoopGroup worker = new NioEventLoopGroup();
+        serverBootstrap
+                .group(boos, worker)
+                .channel(NioServerSocketChannel.class)
+                .childHandler(new ChannelInitializer<NioSocketChannel>() {
+                    protected void initChannel(NioSocketChannel ch) {
+                        ch.pipeline().addLast(new StringDecoder());
+                        ch.pipeline().addLast(new SimpleChannelInboundHandler<String>() {
+                            @Override
+                            protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+                                //获得实现类处理过后的返回值
+                                String invokeMethodMes = CommonDeal.getInvokeMethodMes(msg);
+                                ByteBuf encoded = ctx.alloc().buffer(4 * invokeMethodMes.length());
+                                encoded.writeBytes(invokeMethodMes.getBytes());
+                                ctx.writeAndFlush(encoded);
+                            }
+                        });
+                    }
+                }).bind(20006);
     }
 }
