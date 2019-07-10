@@ -46,6 +46,7 @@ public class RedisMessageListenerFactory implements BeanFactoryAware, Applicatio
                     }
                     BeanDefinitionBuilder containerBeanDefinitionBuilder = BeanDefinitionBuilder
                             .genericBeanDefinition(RedisMessageListenerContainer.class);
+                    //设置单机监听主节点的配置
                     RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(node.getHost(),node.getPort());
                     LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration);
                     lettuceConnectionFactory.afterPropertiesSet();
