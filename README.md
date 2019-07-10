@@ -3,6 +3,7 @@
 > 文章对应代码的模块地址
 
 * 徒手撸一个简单的RPC框架 **`rpc-client模块`** 客户端 **`rpc-server模块`** 服务端
+* 徒手撸一个简单的RPC框架(2)——项目改造 **`rpc-client模块`** 客户端 **`rpc-server模块`** 服务端
 * 徒手撸一个简单的IOC   **`ioc模块`**
 * 解决Redis集群条件下键空间通知服务器接收不到消息的问题 **`Spring-redis模块`**
 * SpringBoot 2.0 Lettuce连接 解决Redis集群条件下键空间通知服务器接收不到消息的问题 **`lettuce模块`**
