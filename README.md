@@ -7,4 +7,5 @@
 * 徒手撸一个简单的IOC   **`ioc模块`**
 * 解决Redis集群条件下键空间通知服务器接收不到消息的问题 **`Spring-redis模块`**
 * SpringBoot 2.0 Lettuce连接 解决Redis集群条件下键空间通知服务器接收不到消息的问题 **`lettuce模块`**
-* 关于Redis热点key的一些思考 **`Spring-redis模块`**
+* 关于Redis热点key的一些思考 **`Spring-redis模块`**  
+* 如何自己手写一个热加载 **`classLoader模块`**
