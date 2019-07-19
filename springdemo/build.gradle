@@ -1,0 +1,22 @@
+plugins {
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.example.springdemo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    mavenCentral()
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven { url 'https://repo.spring.io/milestone' }
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
