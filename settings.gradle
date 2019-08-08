@@ -5,4 +5,5 @@ include 'common'
 include 'ioc'
 include 'spring-redis'
 include 'classLoader'
+include 'aboutjava'
 
