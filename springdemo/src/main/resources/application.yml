@@ -11,5 +11,11 @@ spring:
       enabled: true
       max-file-size: 20MB
       max-request-size: 20MB
+  aop:
+    proxy-target-class: true
 
 
+
+
+test:
+  value: secondAgent
