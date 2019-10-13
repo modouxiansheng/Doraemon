@@ -24,8 +24,8 @@ import java.util.zip.ZipOutputStream;
  * @author: hu_pf
  * @create: 2019-08-14 10:15
  **/
-//@OutputTimeUnit(TimeUnit.SECONDS)
-//@BenchmarkMode({Mode.AverageTime})
+@OutputTimeUnit(TimeUnit.SECONDS)
+@BenchmarkMode({Mode.AverageTime})
 public class FileCompress {
 
     //要压缩的图片文件所在所存放位置
@@ -61,11 +61,11 @@ public class FileCompress {
 
     public static void main(String[] args) throws RunnerException {
 
-//        Options opt = new OptionsBuilder()
-//                .include(FileCompress.class.getSimpleName())
-//                .forks(1).warmupIterations(10).threads(1)
-//                .build();
-//        new Runner(opt).run();
+        Options opt = new OptionsBuilder()
+                .include(FileCompress.class.getSimpleName())
+                .forks(1).warmupIterations(10).threads(1)
+                .build();
+        new Runner(opt).run();
 
 //        System.out.println("------NoBuffer");
 //        zipFileNoBuffer();
@@ -79,8 +79,8 @@ public class FileCompress {
 //        System.out.println("---------Map");
 //        zipFileMap();
 
-        System.out.println("-------Pip");
-        zipFilePip();
+//        System.out.println("-------Pip");
+//        zipFilePip();
 
     }
 
@@ -129,8 +129,27 @@ public class FileCompress {
         }
     }
 
+    @Benchmark
+    public static void zipFileChannelBuffer() {
+        //开始时间
+        long beginTime = System.currentTimeMillis();
+        File zipFile = new File(ZIP_FILE);
+        try (ZipOutputStream zipOut = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFile)));
+                WritableByteChannel writableByteChannel = Channels.newChannel(zipOut)) {
+            for (int i = 0; i < 10; i++) {
+                try (FileChannel fileChannel = new FileInputStream(JPG_FILE).getChannel()) {
+                    zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));
+                    fileChannel.transferTo(0, FILE_SIZE, writableByteChannel);
+                }
+            }
+            printInfo(beginTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //Version 3 使用Channel
-//    @Benchmark
+    @Benchmark
     public static void zipFileChannel() {
         //开始时间
         long beginTime = System.currentTimeMillis();
@@ -149,16 +168,14 @@ public class FileCompress {
         }
     }
 
-    //Version 4 使用Map映射文件
-//    @Benchmark
-    public static void zipFileMap() {
+    @Benchmark
+    public static void zipFileMapBuffer() {
         //开始时间
         long beginTime = System.currentTimeMillis();
         File zipFile = new File(ZIP_FILE);
-        try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
+        try (ZipOutputStream zipOut = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFile)));
                 WritableByteChannel writableByteChannel = Channels.newChannel(zipOut)) {
             for (int i = 0; i < 10; i++) {
-
                 zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));
 
                 //内存中的映射文件
@@ -172,6 +189,30 @@ public class FileCompress {
             e.printStackTrace();
         }
     }
+    //Version 4 使用Map映射文件
+    @Benchmark
+    public static void zipFileMap() {
+        //开始时间
+        long beginTime = System.currentTimeMillis();
+        File zipFile = new File(ZIP_FILE);
+        try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
+                WritableByteChannel writableByteChannel = Channels.newChannel(zipOut)) {
+            for (int i = 0; i < 10; i++) {
+                zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));
+
+                //内存中的映射文件
+                MappedByteBuffer mappedByteBuffer = new RandomAccessFile(JPG_FILE_PATH, "r").getChannel()
+                        .map(FileChannel.MapMode.READ_ONLY, 0, FILE_SIZE);
+
+                writableByteChannel.write(mappedByteBuffer);
+            }
+            printInfo(beginTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     //Version 5 使用Pip
 //    @Benchmark
