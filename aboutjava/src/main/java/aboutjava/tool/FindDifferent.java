@@ -3,11 +3,9 @@ package aboutjava.tool;
 import de.danielbechler.diff.ObjectDifferBuilder;
 import de.danielbechler.diff.node.DiffNode;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 /**
  * @program: springBootPractice
@@ -21,7 +19,7 @@ public class FindDifferent {
     private static Map<Object, Class> classCache = new HashMap<>();
     private static Map<Object, Field[]> fieldsCache = new HashMap<>();
 
-    {
+    static {
         TYPE_ARRAY.add(String.class);
         TYPE_ARRAY.add(Integer.class);
         TYPE_ARRAY.add(Byte.class);
@@ -46,7 +44,7 @@ public class FindDifferent {
         findDiff(oldData, newData);
     }
 
-    public static <T, U> void findDiff(T oldData, U newData) {
+    public static <T, U> List<CompareResult> findDiff(T oldData, U newData) {
 
         DiffNode root = ObjectDifferBuilder.buildDefault().compare(oldData, newData);
         List<CompareResult> compareResultList = new ArrayList<>();
@@ -68,16 +66,14 @@ public class FindDifferent {
                 compareResultList.add(compareResult);
             }
         });
-
-        System.out.println("1");
-
+        return compareResultList;
     }
 
     public static <T> String getDescribe(T object, String paraName) {
         String describe = "";
         try {
-            Field declaredField = findField(object, paraName);
-            AliasForCompare annotation = declaredField.getAnnotation(AliasForCompare.class);
+            InvokeField findField = findField(object, paraName);
+            AliasForCompare annotation = findField.getField().getAnnotation(AliasForCompare.class);
             describe = annotation.describe();
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,18 +82,18 @@ public class FindDifferent {
     }
 
     public static <T> T setValue(T initObject, String paraName, Object value) {
-        Field field = findField(initObject, paraName);
-        setFieldValue(field, initObject, value);
+        InvokeField invokeField = findField(initObject, paraName);
+        setFieldValue(invokeField.getField(), invokeField.getObject(), value);
         return initObject;
     }
 
-    public static <T> Field findField(T initObject, String paraName) {
+    public static <T> InvokeField findField(T initObject, String paraName) {
         // 从缓存中获取Class
         Class initClass = getClassCache(initObject);
         // 从缓存中获取Field
         Field[] allFields = getFieldsCache(initClass, initObject);
 
-        Field findField = null;
+        InvokeField findField = new InvokeField();
         for (Field field : allFields) {
             // 属性类型
             Class<?> type = field.getType();
@@ -106,8 +102,12 @@ public class FindDifferent {
                 // 递归查找
                 findField = findField(setFieldObject(field, initObject), paraName);
             }
+            if (paraName.equals(findField.getField().getName())){
+                break;
+            }
             if (paraName.equals(field.getName())) {
-                findField = field;
+                findField.setField(field);
+                findField.setObject(initObject);
                 break;
             }
         }
