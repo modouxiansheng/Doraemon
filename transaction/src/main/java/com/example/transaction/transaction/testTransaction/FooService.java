@@ -1,4 +1,4 @@
-package com.example.transaction.transaction;
+package com.example.transaction.transaction.testTransaction;
 
 public interface FooService {
     void insertRecord();

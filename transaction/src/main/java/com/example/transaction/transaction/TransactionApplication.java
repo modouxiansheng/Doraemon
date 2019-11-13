@@ -1,6 +1,9 @@
 package com.example.transaction.transaction;
 
-import lombok.Data;
+import com.example.transaction.transaction.chain.InitPrintChainPattern;
+import com.example.transaction.transaction.chain.PrintChainPattern;
+import com.example.transaction.transaction.testTransaction.BarService;
+import com.example.transaction.transaction.testTransaction.Global;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -25,9 +28,20 @@ public class TransactionApplication implements CommandLineRunner {
     @Autowired
     private BarService barService;
 
+    @Autowired
+    private InitPrintChainPattern initPrintChainPattern;
+
     @Override
     public void run(String... args) throws Exception {
-//        fooService.insertRecord();
+
+//        // 事务相关
+//        transaction();
+
+        initPrintChainPattern.print(1);
+    }
+
+    private void transaction(){
+        //        fooService.insertRecord();
 //        log.info("AAA {}",
 //                jdbcTemplate
 //                        .queryForObject("SELECT COUNT(*) FROM FOO WHERE BAR='AAA'", Long.class));
