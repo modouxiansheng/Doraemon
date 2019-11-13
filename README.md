@@ -12,9 +12,5 @@
 * SpringBoot 2.0 多图片上传加回显 **`springdemo`模块**
 * 压缩20M文件从30秒到1秒的优化过程 **`aboutJava`模块**
 * 后端框架开发需要注意的几点 **`javadevelopmentframewor`模块**
-<<<<<<< HEAD
 * Spring事务传播属性有那么难吗？看这一篇就够了 **`transaction`模块**
 * 如何在Spring中使用责任链设计模式 **`transaction`模块**
-=======
-* Spring事务传播属性有那么难吗？看这一篇就够了 **`transactional`模块**
->>>>>>> 2a30532c9c7b783a10b0bd669e5ba723d846340a
