@@ -22,4 +22,10 @@ dependencies {
     compile 'de.danielbechler:java-object-diff:0.95'
 
     compile ("org.projectlombok:lombok:1.16.6")
+
+    // 生成pdf模板
+    compile 'com.itextpdf:itextpdf:5.5.10'
+    compile 'org.apache.pdfbox:pdfbox:2.0.4'
+    compile 'org.bouncycastle:bcprov-jdk15on:1.56'
+    compile 'com.itextpdf.tool:xmlworker:5.5.10'
 }

@@ -2,6 +2,8 @@ package aboutjava.algorithm;
 
 import lombok.Data;
 
+import java.util.Arrays;
+
 /**
  * @program: springBootPractice
  * @description: 链表
@@ -25,31 +27,25 @@ public class AboutLinkedList {
             node.setNum(i);
             aboutLinkedList.addNode(node);
         }
-        aboutLinkedList.swapNode(aboutLinkedList.head.getNext());
-//        aboutLinkedList.reversalNodeThree(aboutLinkedList.head.getNext());
-//        aboutLinkedList.deleteNodeForNTwo(aboutLinkedList.head.getNext(),2);
-        aboutLinkedList.printNode(aboutLinkedList.head.getNext());
-//        aboutLinkedList.deleteNodeForN(aboutLinkedList.head.getNext(),2);
-//        aboutLinkedList.printNode(aboutLinkedList.head.getNext());
-//        Node node = new Node();
-//        node.setNum(3);
-//        deleteNode(node);
-//        deleteNode();
-//        deleteNode();
-//        deleteNode();
-//        deleteNode();
-//        System.out.printf("反转前");
-//        aboutLinkedList.reversalNodeTwo(aboutLinkedList.head.getNext());
-//        Node next = aboutLinkedList.head.getNext();
-//        aboutLinkedList.printNode(next);
-//        Node node = aboutLinkedList.reversalNodeOne();
-//        Node afterNode = node.getNext();
-//        System.out.printf("反转后");
-//        aboutLinkedList.printNode(afterNode);
 
-//        Node queryNode = aboutLinkedList.getNode(4);
-//        System.out.printf("node1:" + queryNode.getNum());
-//        System.out.printf("1");
+        AboutLinkedList one = new AboutLinkedList();
+        AboutLinkedList two = new AboutLinkedList();
+        Arrays.asList("1,2,4".split(",")).forEach(i ->{
+            Node node = new Node();
+            node.setNum(Integer.valueOf(i));
+            one.addNode(node);
+        });
+        Arrays.asList("1,3,4".split(",")).forEach(i ->{
+            Node node = new Node();
+            node.setNum(Integer.valueOf(i));
+            two.addNode(node);
+        });
+
+//        Node node = aboutLinkedList.mergeTwoListTwo(one.head.getNext(), two.head.getNext());
+//        aboutLinkedList.printNode(node);
+
+        Node nodeForCenter = aboutLinkedList.getNodeForCenter(aboutLinkedList.head.getNext());
+        System.out.printf(nodeForCenter.getNum().toString());
     }
 
     public void printNode(Node next){
@@ -292,6 +288,58 @@ public class AboutLinkedList {
             nodeTwo.setNext(next);
             return nodeTwo;
         }
+    }
+
+    /**
+    * @Description: 合并两个有序链表 - 迭代方法
+    * @Param: [nodeOne, nodeTwo]
+    * @return: aboutjava.algorithm.Node
+    * @Author: hu_pf
+    * @Date: 2019/11/21
+    */
+    public Node mergeTwoListTwo(Node nodeOne, Node nodeTwo){
+
+        AboutLinkedList mergeTwoList = new AboutLinkedList();
+        Node headNodeOne = nodeOne;
+        Node headNodeTwo = nodeTwo;
+
+        while (headNodeOne!=null || headNodeTwo!=null){
+
+            if (headNodeOne == null || headNodeOne.getNum() > headNodeTwo.getNum()){
+                mergeTwoList.addNode(headNodeTwo);
+                Node pre = headNodeTwo;
+                headNodeTwo = headNodeTwo.getNext();
+                pre.setNext(null);
+            }else {
+                mergeTwoList.addNode(headNodeOne);
+                Node pre = headNodeOne;
+                headNodeOne = headNodeOne.getNext();
+                pre.setNext(null);
+            }
+        }
+        return mergeTwoList.head.getNext();
+    }
+
+    /**
+    * @Description: 获得链表的中间节点 - 利用快慢指针
+    * @Param: [head]
+    * @return: aboutjava.algorithm.Node
+    * @Author: hu_pf
+    * @Date: 2019/11/23
+    */
+    public Node getNodeForCenter(Node head){
+        if (head == null){
+            return null;
+        }else if (head.getNext() == null){
+            return head;
+        }
+        Node slow = head;
+        Node fast = head;
+        while (fast!=null && fast.getNext()!=null){
+            slow = slow.getNext();
+            fast = fast.getNext().getNext();
+        }
+        return slow;
     }
 
 
