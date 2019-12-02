@@ -13,9 +13,10 @@ spring:
       max-request-size: 20MB
   aop:
     proxy-target-class: true
-
-
-
+  datasource:
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/mybatis
+    username: root
+    password: hpy911213
 
 test:
   value: secondAgent

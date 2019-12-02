@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h5>测试Cookies</h5>
+
+<input type="submit" onclick="getCookie()" value="查看用户"/>
+
+<script>
+    function getCookie() {
+        var nameEQ = "testUser=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0){
+                alert(c.substring(nameEQ.length,c.length))
+                return c.substring(nameEQ.length,c.length);
+            }
+        }
+        return null;
+    }
+</script>
+</body>
+</html>
