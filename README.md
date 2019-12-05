@@ -1,4 +1,4 @@
-<p align="center"><a href="http://modouxiansheng.top/" target="_blank" rel="noopener noreferrer"><img width="100" src="https://tva1.sinaimg.cn/large/006tNbRwly1g9lvhpkhiwj30jh0c5jth.jpg" alt="Vue logo"></a></p>
+<p align="center"><a href="http://modouxiansheng.top/" target="_blank" rel="noopener noreferrer"><img width="100" src="./common/pic/图标改.jpeg" alt="Doraemon logo"></a></p>
 
 <p align="center">
   <a href="http://modouxiansheng.top/"><img src="https://img.shields.io/circleci/project/github/vuejs/vue/dev.svg" alt="Build Status"></a>
@@ -39,9 +39,9 @@
 
 如果您感觉我写的文章对您有用，或者解决了您的问题，想请作者喝瓶水的，请扫下方。
 
-<p><a href="http://modouxiansheng.top/" target="_blank" rel="noopener noreferrer"><img width="100" src="https://tva1.sinaimg.cn/large/006tNbRwly1g9lupnt0alj30u0155whz.jpg" alt="Vue logo"></a>
+<p><a href="http://modouxiansheng.top/" target="_blank" rel="noopener noreferrer"><img width="100" src="./common/pic/微信.jpeg" alt="Vue logo"></a>
 
-<a href="http://modouxiansheng.top/" target="_blank" rel="noopener noreferrer"><img width="100" src="https://tva1.sinaimg.cn/large/006tNbRwly1g9lupzk17kj30k00v4myz.jpg" alt="Vue logo"></a>
+<a href="http://modouxiansheng.top/" target="_blank" rel="noopener noreferrer"><img width="100" src="./common/pic/支付宝.jpeg" alt="Vue logo"></a>
 </p>
 
 
