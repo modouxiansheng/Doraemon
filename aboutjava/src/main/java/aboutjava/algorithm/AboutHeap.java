@@ -20,6 +20,10 @@ public class AboutHeap {
             heap.insert(Integer.valueOf(s));
         });
         heap.removeMax();
+
+        int[] noSortNumArray = new int[]{0,2,5,6,3,1,43,6,75,7,45,64,34,87};
+//        heap.buildHeap(noSortNumArray,noSortNumArray.length-1);
+        heap.sort(noSortNumArray,noSortNumArray.length-1);
         System.out.printf("1");
     }
 
@@ -52,7 +56,7 @@ class Heap{
         if (count >= n) return;
 
         count++;
-        // 把数据放到数组中，这里为什么不先count++后a[count] = data,因为堆在数组中排放位置是从索引为1的位置开始的。
+        // 把数据放到数组中
         a[count] = data;
 
         int index = count;
@@ -62,6 +66,40 @@ class Heap{
         while (index/2>0 && a[index]>a[index/2]){
             swap(a,index,index/2);
             index = index/2;
+        }
+    }
+
+
+    /**
+    * @Description: 建堆，自下而上建堆,叶子节点无需堆化，所以无需进行比较。
+     *              所以从第一个非叶子节点（即位置在2/n）进行堆化处理往前进行处理
+    * @Param: [a, n]
+    * @return: void
+    * @Author: hu_pf
+    * @Date: 2019/12/6
+    */
+    public void buildHeap(int[] a,int n){
+        for (int i =n/2;i>=1;i--){
+            heapify(a,n,i);
+        }
+    }
+
+    /**
+    * @Description: 堆排序。
+     *              1. 建堆，对传入的数组建堆处理
+     *              2. 排序，不断将堆顶数据移出来，堆化。这样得到的数组就是有序的数组了
+    * @Param: [a, i]
+    * @return: void
+    * @Author: hu_pf
+    * @Date: 2019/12/6
+    */
+    public void sort(int[]a,int i){
+        buildHeap(a,i);
+        int k = i;
+        while (k > 1){
+            swap(a,1,k);
+            --k;
+            heapify(a,k,1);
         }
     }
 
@@ -85,7 +123,7 @@ class Heap{
     }
 
     /**
-    * @Description: 自上而上对堆进行排序
+    * @Description: 自上而下对堆进行排序
     * @Param: [a, n, i]
     * @return: void
     * @Author: hu_pf
@@ -94,24 +132,16 @@ class Heap{
     private void heapify(int [] a,int n,int i){
         // 定义什么时候结束，当前节点与其左右子节点进行比对，如果当前节点是最大的则跳出循环（代表当前节点已经是最大的）
         while (true){
-            if (getMaxIndex(a,n,i) == i) break;
+            int maxIndex = i;
+            // 找到三个节点中最大节点的索引值
+            if (2*i<= n && a[i]<a[2*i]) maxIndex = 2*i; // 判断当前节点,是否小于左节点
+            if (2*i+1<= n && a[maxIndex]<a[2*i+1]) maxIndex = 2*i+1;// 判断最大节点是否小于右节点
+            // 如果当前节点已经是最大节点就停止交换并停止循环
+            if (maxIndex == i )break;
+            // 找到中最大值的位置，并交换位置
+            swap(a,i,maxIndex);
+            i = maxIndex;
         }
-    }
-
-    /**
-    * @Description: 找出最大节点的索引值
-    * @Param: [a, i]
-    * @return: int
-    * @Author: hu_pf
-    * @Date: 2019/12/5
-    */
-    private int getMaxIndex(int [] a,int count,int i){
-        int maxIndex = i;
-        if (2*i<= count && a[i]<a[2*i]) maxIndex = 2*i; // 判断当前节点,是否小于左节点
-        if (2*i+1<= count && a[maxIndex]<a[2*i+1]) maxIndex = 2*i+1;// 判断最大节点是否小于右节点
-        // 找到中最大值的位置，并交换位置
-        swap(a,i,maxIndex);
-        return maxIndex;
     }
 
     private void swap(int [] a, int i , int j){
