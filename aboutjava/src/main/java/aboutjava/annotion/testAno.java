@@ -6,7 +6,7 @@ package aboutjava.annotion;
  * @author: hu_pf
  * @create: 2019-10-29 16:24
  **/
-@TestAnno
+@MyGetter
 public class testAno {
 
     public static void main(String[] args) {

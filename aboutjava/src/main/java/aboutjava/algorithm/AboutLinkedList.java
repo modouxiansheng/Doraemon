@@ -357,4 +357,8 @@ class Node{
         return (this.getNum() == obj.getNum());
     }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
