@@ -1,4 +1,4 @@
-package aboutjava.annotion;
+package aboutjava.annotion.update;
 
 /**
  * @program: springBootPractice

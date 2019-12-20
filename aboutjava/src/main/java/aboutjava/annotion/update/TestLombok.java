@@ -1,10 +1,6 @@
-package aboutjava.annotion;
+package aboutjava.annotion.update;
 
 import lombok.Data;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @program: springBootPractice

@@ -21,7 +21,7 @@ public class AboutThread {
     }
 
     public static void customerThread(){
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(0,Integer.MAX_VALUE,1, TimeUnit.SECONDS,new SynchronousQueue<>(),
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10,Integer.MAX_VALUE,1, TimeUnit.SECONDS,new SynchronousQueue<>(),
                 new CustomerThreadFactory("customerThread"));
 
         for (int i = 0; i < 10; i++) {
@@ -44,6 +44,12 @@ public class AboutThread {
         Executors.newScheduledThreadPool(10);
         ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(0,Integer.MAX_VALUE,1, TimeUnit.SECONDS,new SynchronousQueue<>());
         for (int i = 0; i < 10; i++) {
+            threadPoolExecutor.submit(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
             threadPoolExecutor.execute(new Runnable() {
                 @Override
                 public void run() {

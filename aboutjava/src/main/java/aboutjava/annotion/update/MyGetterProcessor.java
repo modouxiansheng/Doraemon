@@ -1,4 +1,4 @@
-package aboutjava.annotion;
+package aboutjava.annotion.update;
 
 import com.sun.tools.javac.api.JavacTrees;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
