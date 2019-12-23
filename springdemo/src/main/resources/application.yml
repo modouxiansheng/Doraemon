@@ -20,3 +20,8 @@ spring:
 
 test:
   value: secondAgent
+
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  type-handlers-package: com.example.springdemo.springdemo.mybatisHandler

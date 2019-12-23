@@ -18,7 +18,7 @@ public class AboutObjectMemory {
 //        System.out.printf(String.valueOf("1234567".getBytes().length));
         String s = "1234567";
          byte [] b = new byte[10];
-        System.out.print(ClassLayout.parseClass(String.class).toPrintable());
+        System.out.print(ClassLayout.parseClass(Integer.class).toPrintable());
 
 //        List<Animal> animals = new ArrayList<>(20000000);
 //        Thread.sleep(20000);

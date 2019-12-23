@@ -2,6 +2,7 @@ package com.example.springdemo.springdemo;
 
 import com.example.springdemo.springdemo.dataSource.SycAndTrans;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @Slf4j
+@MapperScan("com.example.springdemo.springdemo.mapper")
 public class SpringdemoApplication implements CommandLineRunner {
 
     @Autowired

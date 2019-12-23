@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springdemo.springdemo.mapper.UserMapper">
+
+    <resultMap id="userMap" type="com.example.springdemo.springdemo.domain.User">
+        <result column="name" property="name"/>
+        <result column="age" property="age"/>
+    </resultMap>
+    
+    <insert id="addUser" parameterType="map">
+        insert into user_info (name,age) values(#{name},#{age})
+    </insert>
+
+    <select id="queryAllUser" resultMap="userMap">
+        select name,age from user_info
+    </select>
+
+    <select id="queryAllUserMap" resultType="map">
+        select name as "map_key",age as "map_value" from user_info
+    </select>
+</mapper>
