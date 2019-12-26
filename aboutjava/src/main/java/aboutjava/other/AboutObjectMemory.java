@@ -2,9 +2,11 @@ package aboutjava.other;
 
 import com.sshtools.j2ssh.util.Hash;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.openjdk.jol.info.ClassLayout;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 /**
  * @program: springBootPractice
@@ -14,11 +16,12 @@ import java.util.*;
  **/
 public class AboutObjectMemory {
 
+
     public static void main(String[] args) throws InterruptedException {
 //        System.out.printf(String.valueOf("1234567".getBytes().length));
         String s = "1234567";
          byte [] b = new byte[10];
-        System.out.print(ClassLayout.parseClass(Integer.class).toPrintable());
+        System.out.print(ClassLayout.parseClass(Object.class).toPrintable());
 
 //        List<Animal> animals = new ArrayList<>(20000000);
 //        Thread.sleep(20000);
@@ -27,7 +30,8 @@ public class AboutObjectMemory {
 //            Animal animal = new Animal();
 //            animals.add(animal);
 //        }
-//        Thread.sleep(10000);
+//        System.out.println("end");
+//        Thread.sleep(50000);
 
 
 //        List<String> mylist = new ArrayList();
@@ -39,12 +43,30 @@ public class AboutObjectMemory {
 //        Thread.sleep(50000);
 
 
-        Map<Animal,Animal> map = new HashMap<>(20000000);
-        Thread.sleep(20000);
-        for (int i = 0; i < 20000000; i++) {
-            map.put(new Animal(),new Animal());
+//        Map<Animal,Animal> map = new HashMap<>(20000000);
+//        Thread.sleep(20000);
+//        for (int i = 0; i < 20000000; i++) {
+//            map.put(new Animal(),new Animal());
+//        }
+//        Thread.sleep(50000);
+
+
+        LinkedList<Greeting> objCache =  new LinkedList<>();
+//        Thread.sleep(20000);
+        System.out.println("初始化数组大小");
+//        List<Animal> arrayList = new ArrayList<>(2000000);
+        List<String> stringArrayList = new ArrayList<>(2000000);
+//        Thread.sleep(20000);
+        System.out.println("装入数据");
+        for (int i = 0; i < 2000000; i++) {
+            Animal greeting = new Animal();
+//            objCache.add(greeting);
+//            arrayList.add(greeting);
+            String str = new String("1");
+            stringArrayList.add(str);
         }
-        Thread.sleep(50000);
+        System.out.println("结束");
+//        Thread.sleep(50000);
 
     }
 
@@ -69,11 +91,18 @@ public class AboutObjectMemory {
 class Animal{
 
     private int age;
-
 //    private String name;
 
 //    Animal(String name){
 //        this.name = name;
 //    }
+}
+
+class Greeting {
+    private String message;
+
+    Greeting(String message){
+        this.message = message;
+    }
 }
 

@@ -23,15 +23,15 @@ public class SpringdemoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        for (int i = 0; i < 10; i++) {
-            final int index = i;
-            log.info("线程{}开始",index);
-            new Thread(()->{
-                for (int j = 0; j < 1000; j++) {
-                    sycAndTrans.testAdd();
-                }
-                log.info("线程{}结束",index);
-            }).start();
-        }
+//        for (int i = 0; i < 10; i++) {
+//            final int index = i;
+//            log.info("线程{}开始",index);
+//            new Thread(()->{
+//                for (int j = 0; j < 1000; j++) {
+//                    sycAndTrans.testAdd();
+//                }
+//                log.info("线程{}结束",index);
+//            }).start();
+//        }
     }
 }
