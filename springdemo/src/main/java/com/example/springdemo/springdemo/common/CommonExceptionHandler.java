@@ -31,6 +31,7 @@ public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseBody
     public ResponseEntity<String> defaultErrorHandler(HttpServletRequest request, Exception exception){
         log.info("defaultErrorHandler");
+        exception.printStackTrace();
         return handleErrorInfo(request, exception.getMessage());
     }
 
