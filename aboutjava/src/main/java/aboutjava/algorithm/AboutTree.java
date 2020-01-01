@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Stack;
 
 /**
  * @program: springBootPractice
@@ -19,11 +21,11 @@ public class AboutTree {
 
     // 二叉树的遍历  增删查
     public static void main(String[] args) {
-        // 树的遍历
-//        ergodicTree();
-
-        // 树的增删改查
-        aboutTreeDataDeal();
+//         树的遍历
+        ergodicTree();
+//
+//         树的增删改查
+//        aboutTreeDataDeal();
     }
 
     public static void aboutTreeDataDeal(){
@@ -74,6 +76,19 @@ public class AboutTree {
         System.out.printf("\n");
         System.out.printf("后序遍历：");
         afterOrder(aTreeNode);
+        System.out.printf("\n");
+        System.out.println("层次遍历：");
+        bfsTree(aTreeNode);
+
+        System.out.printf("前序遍历无递归方式：");
+        frontSortNoRecursion(aTreeNode);
+        System.out.printf("\n");
+        System.out.printf("中序遍历无递归方式：");
+        middleSortNoRecursion(aTreeNode);
+        System.out.printf("\n");
+        System.out.printf("后序遍历无递归方式：");
+        afterSortNoRecursion(aTreeNode);
+
     }
 
     /**
@@ -232,6 +247,100 @@ public class AboutTree {
             treeNode.data = minNode.data;
             if (minNodeParent.rightNode != minNode) minNodeParent.leftNode = minNode.rightNode;
             else minNodeParent.rightNode = minNode.rightNode;
+        }
+    }
+
+    /**
+    * @Description: 树的层次遍历
+    * @Param: [rootNode]
+    * @return: void
+    * @Author: hu_pf
+    * @Date: 2020/1/1
+    */
+    public static void bfsTree(TreeNode rootNode){
+
+        if(rootNode == null) return;
+        LinkedList<TreeNode> queue = new LinkedList();
+        queue.offer(rootNode);
+        while (!queue.isEmpty()){
+            TreeNode treeNode = queue.poll();
+            System.out.println(treeNode.data);
+            if (treeNode.leftNode!=null) queue.offer(treeNode.leftNode);
+            if (treeNode.rightNode!=null) queue.offer(treeNode.rightNode);
+        }
+    }
+
+    /**
+    * @Description: 非递归方式前序遍历
+    * @Param: [treeNode]
+    * @return: void
+    * @Author: hu_pf
+    * @Date: 2020/1/1
+    */
+    public static void frontSortNoRecursion(TreeNode treeNode){
+        if (treeNode == null) return;
+
+        Stack<TreeNode> stack = new Stack();
+        TreeNode curNode = treeNode;
+        while (curNode!=null || !stack.empty()){
+            while (curNode!=null){
+                System.out.println(String.valueOf(curNode.data));
+                stack.push(curNode);
+                curNode = curNode.leftNode;
+            }
+            curNode = stack.pop();
+            curNode = curNode.rightNode;
+        }
+    }
+
+    /**
+     * @Description: 非递归方式中序遍历
+     * @Param: [treeNode]
+     * @return: void
+     * @Author: hu_pf
+     * @Date: 2020/1/1
+     */
+    public static void middleSortNoRecursion(TreeNode treeNode){
+        if (treeNode == null) return;
+        Stack<TreeNode> stack = new Stack();
+        TreeNode curNode = treeNode;
+        while (curNode!=null || !stack.empty()){
+            while (curNode!=null){
+                stack.push(curNode);
+                curNode = curNode.leftNode;
+            }
+            curNode = stack.pop();
+            System.out.println(String.valueOf(curNode.data));
+            curNode = curNode.rightNode;
+        }
+    }
+
+    /**
+     * @Description: 非递归方式后序序遍历
+     * @Param: [treeNode]
+     * @return: void
+     * @Author: hu_pf
+     * @Date: 2020/1/1
+     */
+    public static void afterSortNoRecursion(TreeNode treeNode){
+        if (treeNode == null) return;
+        Stack<TreeNode> stack = new Stack();
+        TreeNode curNode = treeNode;
+        TreeNode lastNode = null;
+        while (curNode!=null || !stack.empty()){
+            while (curNode!=null){
+                stack.push(curNode);
+                curNode = curNode.leftNode;
+            }
+            curNode = stack.peek();
+            if (curNode.rightNode == null || curNode.rightNode == lastNode){
+                curNode = stack.pop();
+                System.out.println(String.valueOf(curNode.data));
+                lastNode = curNode;
+                curNode = null;
+            }else {
+                curNode = curNode.rightNode;
+            }
         }
     }
 
