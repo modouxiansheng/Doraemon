@@ -48,3 +48,15 @@ function getUpload(){
         })
     });
 }
+
+function CheckStatus(value) {
+
+    if (value == "onlinePay") {
+        document.getElementById("onlinePay").checked = true;
+        document.getElementById("underlinePay").checked = false;
+    }
+    else if (value == "underlinePay") {
+        document.getElementById("onlinePay").checked = false;
+        document.getElementById("underlinePay").checked = true;
+    }
+}

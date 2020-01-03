@@ -2,6 +2,8 @@ package com.example.springdemo.springdemo.controller;
 
 import com.example.springdemo.springdemo.Exception.NullOrEmptyException;
 import com.example.springdemo.springdemo.common.ResponseEntity;
+import com.example.springdemo.springdemo.domain.GetInfoFromWebDomain;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,7 @@ import java.util.Arrays;
  * @create: 2019-07-18 17:14
  **/
 @Controller
+@Slf4j
 public class PictureController {
 
     @RequestMapping("")
@@ -28,7 +31,8 @@ public class PictureController {
 
     @RequestMapping("/pic")
     @ResponseBody
-    public ResponseEntity<String> pic(MultipartFile [] pictures) throws Exception {
+    public ResponseEntity<String> pic(MultipartFile [] pictures, GetInfoFromWebDomain getInfoFromWebDomain) throws Exception {
+        log.info("getInfoFromWebDomain:",getInfoFromWebDomain);
         ResponseEntity<String> responseEntity = new ResponseEntity<>();
         long count = Arrays.asList(pictures).stream().
                 map(MultipartFile::getOriginalFilename).
