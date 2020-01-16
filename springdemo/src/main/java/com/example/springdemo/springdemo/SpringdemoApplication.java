@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @Slf4j
 @MapperScan("com.example.springdemo.springdemo.mapper")
+
 public class SpringdemoApplication implements CommandLineRunner {
 
     @Autowired
