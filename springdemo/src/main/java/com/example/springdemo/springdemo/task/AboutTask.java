@@ -19,9 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 @EnableScheduling
 public class AboutTask {
 
-    @Scheduled(cron = "* * * * * ?")
-    @Transactional(rollbackFor = Exception.class)
-    public void print(){
-        log.info("test");
-    }
+//    @Scheduled(cron = "* * * * * ?")
+//    @Transactional(rollbackFor = Exception.class)
+//    public void print(){
+//        log.info("test");
+//    }
 }
