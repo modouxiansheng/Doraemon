@@ -18,7 +18,7 @@ public class TestFuture {
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
-        
+
 //        //获得返回值
 //        getReturnValue();
 

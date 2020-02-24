@@ -33,6 +33,9 @@ public class AboutThread {
                 }
             });
         }
+
+        threadPoolExecutor.shutdown();
+        threadPoolExecutor.shutdownNow();
     }
 
 

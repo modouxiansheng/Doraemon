@@ -24,8 +24,8 @@ import java.util.zip.ZipOutputStream;
  * @author: hu_pf
  * @create: 2019-08-14 10:15
  **/
-@OutputTimeUnit(TimeUnit.SECONDS)
-@BenchmarkMode({Mode.AverageTime})
+//@OutputTimeUnit(TimeUnit.SECONDS)
+//@BenchmarkMode({Mode.AverageTime})
 public class FileCompress {
 
     //要压缩的图片文件所在所存放位置
@@ -61,11 +61,11 @@ public class FileCompress {
 
     public static void main(String[] args) throws RunnerException {
 
-        Options opt = new OptionsBuilder()
-                .include(FileCompress.class.getSimpleName())
-                .forks(1).warmupIterations(10).threads(1)
-                .build();
-        new Runner(opt).run();
+//        Options opt = new OptionsBuilder()
+//                .include(FileCompress.class.getSimpleName())
+//                .forks(1).warmupIterations(10).threads(1)
+//                .build();
+//        new Runner(opt).run();
 
 //        System.out.println("------NoBuffer");
 //        zipFileNoBuffer();
@@ -81,7 +81,7 @@ public class FileCompress {
 
 //        System.out.println("-------Pip");
 //        zipFilePip();
-
+        test();
     }
 
     //Version 1 没有使用Buffer
@@ -112,24 +112,61 @@ public class FileCompress {
         //开始时间
         long beginTime = System.currentTimeMillis();
         File zipFile = new File(ZIP_FILE);
-        try (ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream(zipFile));
-                BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(zipOut)) {
+        try {
+            ZipOutputStream zipOut = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(zipFile)));
+            BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(zipOut);
             for (int i = 0; i < 10; i++) {
-                try (BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(JPG_FILE))) {
-                    zipOut.putNextEntry(new ZipEntry(FILE_NAME + i));
-                    int temp = 0;
-                    while ((temp = bufferedInputStream.read()) != -1) {
-                        bufferedOutputStream.write(temp);
-                    }
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(JPG_FILE));
+                zipOut.putNextEntry(new ZipEntry(i + SUFFIX_FILE));
+                int temp = 0;
+                while ((temp = bufferedInputStream.read()) != -1) {
+                    bufferedOutputStream.write(temp);
                 }
+                zipOut.closeEntry();
+                bufferedInputStream.close();
             }
+            zipOut.close();
             printInfo(beginTime);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Benchmark
+    public static void test(){
+        FileOutputStream fos = null;
+        ZipOutputStream zos = null;
+        try {
+            byte[] buffer = new byte[1024];
+
+            fos = new FileOutputStream(ZIP_FILE);
+
+            zos = new ZipOutputStream(fos);
+            for (int i=0; i < 10; i++) {
+                File srcFile = JPG_FILE;
+                FileInputStream fis = new FileInputStream(srcFile);
+                zos.putNextEntry(new ZipEntry(i + SUFFIX_FILE));
+                int length;
+                while ((length = fis.read(buffer)) > 0) {
+                    zos.write(buffer, 0, length);
+                }
+                zos.closeEntry();
+                fis.close();
+            }
+//            zos.close();
+        }
+        catch (IOException ioe) {
+            System.out.println("Error creating zip file: " + ioe);
+        } finally {
+            try {
+                zos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+//    @Benchmark
     public static void zipFileChannelBuffer() {
         //开始时间
         long beginTime = System.currentTimeMillis();
