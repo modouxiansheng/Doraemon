@@ -36,6 +36,7 @@
 * [如何优雅的使用线程池](http://modouxiansheng.top/2019/12/17/%E4%B8%8D%E5%AD%A6%E6%97%A0%E6%95%B0-%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E7%9A%84%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0-2019/) **`aboutjava`模块**
 * [几百万数据放入内存不会把系统撑爆吗？](http://modouxiansheng.top/2019/12/21/%E4%B8%8D%E5%AD%A6%E6%97%A0%E6%95%B0-%E5%87%A0%E7%99%BE%E4%B8%87%E6%95%B0%E6%8D%AE%E6%94%BE%E5%85%A5%E5%86%85%E5%AD%98%E4%B8%8D%E4%BC%9A%E6%8A%8A%E7%B3%BB%E7%BB%9F%E6%92%91%E7%88%86%E5%90%97-2019/) **`aboutjava`模块**
 * [《沙盘模拟系列》JVM如何调优](http://modouxiansheng.top/2019/12/29/%E4%B8%8D%E5%AD%A6%E6%97%A0%E6%95%B0-%E6%B2%99%E7%9B%98%E6%A8%A1%E6%8B%9F%E7%B3%BB%E5%88%97-JVM%E5%A6%82%E4%BD%95%E8%B0%83%E4%BC%98-2019/) **`springdemo`模块**
+* [Lombok经常用，但是你知道它的原理是什么吗？]() **`aboutjava`模块**
 
 ## 感谢
 
