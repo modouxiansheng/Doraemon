@@ -1,4 +1,5 @@
-package aboutjava.annotion.generate;
+package aboutjava.annotion;
+
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -7,7 +8,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.SOURCE) // 注解只在源码中保留
 @Target(ElementType.TYPE) // 用于修饰类
-public @interface GeneratePrint {
-
-    String value();
+public @interface MySetter {
 }

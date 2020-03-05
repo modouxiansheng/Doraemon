@@ -1,4 +1,4 @@
-package aboutjava.annotion.update;
+package aboutjava.annotion.generate;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

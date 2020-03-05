@@ -1,4 +1,4 @@
-package aboutjava.annotion.update;
+package aboutjava.annotion.generate;
 
 import lombok.Data;
 
