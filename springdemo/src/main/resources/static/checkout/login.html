@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base th:href="${#httpServletRequest.getContextPath()+'/'}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>自定义登录页面</h2>
+<form action="#" method="post">
+    <table>
+        <tr>
+            <td>用户名：</td>
+            <td><input type="text" id="username" name="username"></td>
+        </tr>
+        <tr>
+            <td>密码：</td>
+            <td><input type="password" id="password" name="password"></td>
+        </tr>
+        <tr>
+            <td colspan="2"><button type="button" onclick="login()">登录</button></td>
+        </tr>
+    </table>
+
+</form>
+</body>
+
+<script src="/jquery-1.11.3.min.js"></script>
+<!--<script th:src="@{/jquery-1.11.3.min.js}"></script>-->
+<script>
+    function login(){
+        $.ajax({
+            type: 'POST',
+            url: "/user/login",
+            data: {"username":$("#username").val(),"password":$("#password").val()},
+            // dataType: "json",
+            success: function(response){
+                if(response.data=="success"){
+                    window.location.href="allPage";
+                }else{
+                    alert(response.msg);
+                }
+            },
+            error:function(response){
+                alert("失败");
+                console.log(response);
+            }
+        });
+    }
+</script>
+
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <base th:href="${#httpServletRequest.getContextPath()+'/'}">
+    <meta charset="UTF-8">
+    <title>Stripe 支付</title>
+</head>
+<body>
+<form action="#" method="post">
+
+    <br/>
+    <button type="button" id="pay" value="xxx" onclick="stripePay()">去支付</button>
+
+</form>
+</body>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script src="checkout/jquery-1.11.3.min.js"></script>
+<script src="../script.js"></script>
+<script th:inline="javascript">
+
+
+</script>
+
+
+</html>

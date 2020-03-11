@@ -25,3 +25,10 @@ test:
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
   type-handlers-package: com.example.springdemo.springdemo.mybatisHandler
+
+
+stripe:
+  publicKey: pk_test_IvnAwbTFQPE2MZlwzc1r2dD100MJmWD2Xi
+  apiKey: sk_test_gNZQBmhWNubb5zpJ85VIGeOb00oi0fHw0l
+  webhookSecret: whsec_H7OUpmis3K2JB8fVZeN4KDFTHhT5RYGW
+  homeUrl: http://test.youxiu326.xin/api/stripe/notice
