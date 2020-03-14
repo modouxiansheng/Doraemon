@@ -14,10 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -45,13 +43,17 @@ public class StripeController {
     @GetMapping("/stripe")
     public String index(Model model,HttpServletRequest httpRequest, HttpServletResponse httpResponse) {
 
+        return "checkout/stripe";
+    }
+
+    @GetMapping("/pay")
+    @ResponseBody
+    public Map<String,String>  pay(HttpServletRequest httpRequest, HttpServletResponse httpResponse){
+        Map<String,String> resultMap = new HashMap<>();
         try {
             Stripe.apiKey = privateKey;
 
             Map<String, Object> params = new HashMap<String, Object>();
-
-            //预填充客户邮箱
-            //params.put("customer_email", "youxiu326@163.com");
 
             ArrayList<String> paymentMethodTypes = new ArrayList<>();
             paymentMethodTypes.add("card");
@@ -61,28 +63,25 @@ public class StripeController {
             HashMap<String, Object> lineItem = new HashMap<String, Object>();
             lineItem.put("name", "胡鹏飞测试商品");
             lineItem.put("description", "这是一个测试单描述");
-            lineItem.put("amount", 50000);
-            lineItem.put("currency", "gbp");
+            lineItem.put("amount", 500);
+            lineItem.put("currency", "usd");
             lineItem.put("quantity", 1);
             lineItems.add(lineItem);
             params.put("line_items", lineItems);
-
             //TODO 必须使用https 返回的回调地址
             String uuid = UUID.randomUUID().toString();
             params.put("client_reference_id", uuid);//业务系统唯一标识 即订单唯一编号
             log.info("uuid:{}",uuid);
-//            params.put("success_url", "https://www.baidu.com");
-            //params.put("cancel_url", "https://example.com/cancel");
             params.put("success_url", URLUtils.getBaseURl(httpRequest)+"/paySuccess");
             params.put("cancel_url",  URLUtils.getBaseURl(httpRequest)+"/payError");
             Session session = Session.create(params);
-//            PaymentIntent paymentIntent = PaymentIntent.create(params);
-            model.addAttribute("CHECKOUT_SESSION_ID",session.getId());
+            String sessionId = session.getId();
             log.info("sessionId :{}",session.getId());
+            resultMap.put("sessionId",sessionId);
         } catch (StripeException e) {
             e.printStackTrace();
         }
-        return "checkout/stripe";
+        return resultMap;
     }
 
     /**
@@ -244,31 +243,23 @@ public class StripeController {
      */
     @GetMapping("/refund")
     @ResponseBody
-    public String refund(String returnId) {
+    public String refund(@RequestParam("returnId") String returnId) {
         try {
             //TODO 根据退单 查询订单 查询出保存的charge id
-            String chargeId = "1111111111111";
+            String chargeId = "";
             Stripe.apiKey = privateKey;
-
-            if(true){
-                //check out 支付 保存session Id
-                String sessionId = "cs_test_ZbwWGSK9syIPtG03Km5hxz16N0ApXhFvExIbbduhaY8ntqupkYBztM7n";
-                String id = Session.retrieve(sessionId).getPaymentIntent();
-                PaymentIntent retrieve = PaymentIntent.retrieve(id);
-                chargeId = PaymentIntent.retrieve(id).getCharges().getData().get(0).getId();
-            }else {
-                //token 支付      保存charge Id
-                //TODO 根据退单 查询订单 查询之前保存的charge id
-                chargeId = "111111";
-            }
+            //check out 支付 保存session Id
+            String sessionId = returnId;
+            String paymentIntentId = Session.retrieve(sessionId).getPaymentIntent();
+            PaymentIntent retrieve = PaymentIntent.retrieve(paymentIntentId);
+            chargeId = retrieve.getCharges().getData().get(0).getId();
             RequestOptions options = RequestOptions
                     .builder()
-                    .setIdempotencyKey("xxxxxaaa11112222")
+                    .setIdempotencyKey("xxxxxaaa1113241xx1222222xx212312312321")
                     .build();
-
             Map<String, Object> params = new HashMap<>();
             params.put("charge", chargeId);
-            params.put("amount", 500); //不传退全部
+            params.put("amount", 400); //不传退全部
             Refund refund = Refund.create(params,options);
             String id = refund.getId(); // 退款ID号，根据此号进行查询
             log.info("refundId : {}",id);

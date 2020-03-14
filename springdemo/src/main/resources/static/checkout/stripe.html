@@ -5,22 +5,22 @@
     <meta charset="UTF-8">
     <title>Stripe 支付</title>
 </head>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="checkout/jquery-1.11.3.min.js"></script>
+<script src="../script.js"></script>
 <body>
 <form action="#" method="post">
 
     <br/>
-    <button type="button" id="pay" value="xxx" onclick="stripePay()">去支付</button>
+    <button type="button" id="pay" onclick="stripePay()">去支付</button>
+
+    <br/>
+
+    <td><input type="text" id="refundId" name="refundId"></td>
+    <button type="button" id="refund" onclick="stripeRefund()">退款</button>
 
 </form>
 </body>
-
-<script src="https://js.stripe.com/v3/"></script>
-<script src="checkout/jquery-1.11.3.min.js"></script>
-<script src="../script.js"></script>
-<script th:inline="javascript">
-
-
-</script>
 
 
 </html>

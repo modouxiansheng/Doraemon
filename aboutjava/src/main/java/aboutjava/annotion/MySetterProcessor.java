@@ -96,6 +96,7 @@ public class MySetterProcessor extends AbstractProcessor {
 
         // 生成返回对象
         JCTree.JCExpression methodType = treeMaker.Type(new Type.JCVoidType());
+
         return treeMaker.MethodDef(treeMaker.Modifiers(Flags.PUBLIC),getNewMethodName(jcVariableDecl.getName()),methodType,List.nil(),parameters,List.nil(),block,null);
 
     }
