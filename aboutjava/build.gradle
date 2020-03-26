@@ -31,4 +31,6 @@ dependencies {
     compile 'com.itextpdf.tool:xmlworker:5.5.10'
 
     compile 'org.openjdk.jol:jol-core:0.9'
+
+    compile 'com.squareup:javapoet:1.12.1'
 }

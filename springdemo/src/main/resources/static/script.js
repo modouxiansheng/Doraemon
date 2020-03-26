@@ -75,7 +75,7 @@ function stripeRefund() {
     });
 }
 
-var stripe = Stripe('pk_test_IvnAwbTFQPE2MZlwzc1r2dD100MJmWD2Xi');
+var stripe = Stripe('pk_test_0lY3hK2Vl7lYTOg5MkgKvX8t00yO7d9VJF');
 
 function stripePay(){
     $.ajax({
@@ -95,6 +95,12 @@ function stripePay(){
             alert("失败");
         })
     });
+
+    // stripe.redirectToCheckout({
+    //     sessionId: $("#refundId").val()
+    // }).then(function (result) {
+    //     console.log(result);
+    // });
 
 }
 
