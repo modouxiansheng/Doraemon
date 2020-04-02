@@ -33,4 +33,7 @@ dependencies {
     compile 'org.openjdk.jol:jol-core:0.9'
 
     compile 'com.squareup:javapoet:1.12.1'
+
+    compile 'org.ow2.asm:asm-all:5.2'
+
 }

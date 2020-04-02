@@ -30,5 +30,5 @@ mybatis:
 stripe:
   publicKey: pk_test_0lY3hK2Vl7lYTOg5MkgKvX8t00yO7d9VJF
   apiKey: sk_test_6e0TErt3Usy0Xmu3ZOaYwFe900cl9ANZNh
-  webhookSecret: whsec_qmI0TqmtFOAbNYsMRe2QzwyyZ1B2wGy2
+  webhookSecret: whsec_wpBufCNGtdvYzgQOrD9MY7dIvUekDSxi
   homeUrl: http://test.youxiu326.xin/api/stripe/notice
