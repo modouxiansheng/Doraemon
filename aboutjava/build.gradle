@@ -22,8 +22,6 @@ dependencies {
     compile 'de.danielbechler:java-object-diff:0.95'
 
     compileOnly ("org.projectlombok:lombok:1.16.6")
-    annotationProcessor 'org.projectlombok:lombok:1.16.6'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.16.6'
     // 生成pdf模板
     compile 'com.itextpdf:itextpdf:5.5.10'
     compile 'org.apache.pdfbox:pdfbox:2.0.4'
