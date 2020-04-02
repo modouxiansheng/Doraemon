@@ -20,10 +20,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @Slf4j
@@ -46,6 +44,23 @@ public class StripeController {
         return "checkout/stripe";
     }
 
+    @GetMapping("/domain")
+    @ResponseBody
+    public String domain(){
+
+        Stripe.apiKey = privateKey;
+        Map<String, Object> domainParams = new HashMap<String, Object>();
+        domainParams.put("domain_name", "bec3a4b3.ngrok.io");
+        try {
+            ApplePayDomain.create(domainParams);
+        } catch (StripeException e) {
+            e.printStackTrace();
+            return "error";
+        }
+
+        return "success";
+    }
+
     @GetMapping("/pay")
     @ResponseBody
     public Map<String,String>  pay(HttpServletRequest httpRequest, HttpServletResponse httpResponse){
@@ -63,7 +78,7 @@ public class StripeController {
             HashMap<String, Object> lineItem = new HashMap<String, Object>();
             lineItem.put("name", "胡鹏飞测试商品");
             lineItem.put("description", "这是一个测试单描述");
-            lineItem.put("amount", 500);
+            lineItem.put("amount", 50);
             lineItem.put("currency", "usd");
             lineItem.put("quantity", 1);
             lineItems.add(lineItem);
@@ -74,6 +89,7 @@ public class StripeController {
             log.info("uuid:{}",uuid);
             params.put("success_url", URLUtils.getBaseURl(httpRequest)+"/paySuccess");
             params.put("cancel_url",  URLUtils.getBaseURl(httpRequest)+"/payError");
+            params.put("customer",  "cus_Gw66rrWnolSXyW");
             Session session = Session.create(params);
             String sessionId = session.getId();
             log.info("sessionId :{}",session.getId());
@@ -83,6 +99,8 @@ public class StripeController {
         }
         return resultMap;
     }
+
+
 
     /**
      * 使用token 令牌方式支付
@@ -255,11 +273,11 @@ public class StripeController {
             chargeId = retrieve.getCharges().getData().get(0).getId();
             RequestOptions options = RequestOptions
                     .builder()
-                    .setIdempotencyKey("xxxxxaaa1113241xx1222222xx212312312321")
+                    .setIdempotencyKey(UUID.randomUUID().toString())
                     .build();
             Map<String, Object> params = new HashMap<>();
             params.put("charge", chargeId);
-            params.put("amount", 400); //不传退全部
+            params.put("amount", 40); //不传退全部
             Refund refund = Refund.create(params,options);
             String id = refund.getId(); // 退款ID号，根据此号进行查询
             log.info("refundId : {}",id);
@@ -271,6 +289,17 @@ public class StripeController {
             e.printStackTrace();
         }
         return "退款失败";
+    }
+
+    public static String TimeStampToDate(String timestampString, String formats) {
+
+        Long timestamp = Long.parseLong(timestampString) * 1000;
+        String date = new SimpleDateFormat(formats, Locale.CHINA).format(new Date(timestamp));
+        return date;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(TimeStampToDate("1543743551","yyyy-MM-dd HH:mm:ss"));
     }
 
 } 
