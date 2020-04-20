@@ -75,7 +75,7 @@ function stripeRefund() {
     });
 }
 
-var stripe = Stripe('pk_test_0lY3hK2Vl7lYTOg5MkgKvX8t00yO7d9VJF');
+var stripe = Stripe('pk_test_l3GlhrUNZQ40S0jREI7laODj00wiYhu92J');
 
 function stripePay(){
     $.ajax({

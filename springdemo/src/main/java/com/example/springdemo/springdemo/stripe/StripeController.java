@@ -89,7 +89,7 @@ public class StripeController {
             log.info("uuid:{}",uuid);
             params.put("success_url", URLUtils.getBaseURl(httpRequest)+"/paySuccess");
             params.put("cancel_url",  URLUtils.getBaseURl(httpRequest)+"/payError");
-            params.put("customer",  "cus_Gw66rrWnolSXyW");
+//            params.put("customer",  "cus_Gw66rrWnolSXyW");
             Session session = Session.create(params);
             String sessionId = session.getId();
             log.info("sessionId :{}",session.getId());
@@ -277,7 +277,7 @@ public class StripeController {
                     .build();
             Map<String, Object> params = new HashMap<>();
             params.put("charge", chargeId);
-            params.put("amount", 40); //不传退全部
+            params.put("amount", 50); //不传退全部
             Refund refund = Refund.create(params,options);
             String id = refund.getId(); // 退款ID号，根据此号进行查询
             log.info("refundId : {}",id);

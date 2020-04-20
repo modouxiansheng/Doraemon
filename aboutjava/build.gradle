@@ -34,4 +34,8 @@ dependencies {
 
     compile 'org.ow2.asm:asm-all:5.2'
 
+    compile 'org.apache.httpcomponents:httpclient:4.5.3'
+    compile 'org.apache.httpcomponents:httpmime:4.5.3'
+    compile("com.squareup.okhttp3:okhttp:3.9.1")
+
 }

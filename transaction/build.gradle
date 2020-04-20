@@ -26,5 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
+    implementation 'org.apache.rocketmq:rocketmq-spring-boot-starter:2.0.3'
+    implementation 'com.alibaba:fastjson:1.2.12'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
