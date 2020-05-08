@@ -24,7 +24,7 @@ public class AboutDes {
         String data = "123 456";
         String key = "wang!@#$";
         System.err.println(encrypt(data, key));
-        System.err.println(decrypt("5fiw/XhRJ0E=", key));
+        System.err.println(decrypt(encrypt(data, key), key));
 
     }
 
