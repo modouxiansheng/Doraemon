@@ -38,4 +38,6 @@ dependencies {
     compile 'org.apache.httpcomponents:httpmime:4.5.3'
     compile("com.squareup.okhttp3:okhttp:3.9.1")
 
+    compile 'net.sourceforge.tess4j:tess4j:3.2.1'
+
 }
