@@ -32,7 +32,7 @@ public class GenerateBuxuewushu {
     public static void main(String[] args) throws IOException {
         SimpleDateFormat dataFormat = new SimpleDateFormat("yyyy-MM-dd");
         String date = dataFormat.format(new Date());
-        String source = "史上最便捷搭建RocketMQ服务器的方法.md";
+        String source = "史上最便捷搭建Zookeeper服务器的方法.md";
         String title = source.substring(0,source.indexOf(".md"));
         String target = date+"-不学无数——"+title+"-2020.md";
         String bgPath = getBgPath();
@@ -40,7 +40,7 @@ public class GenerateBuxuewushu {
                 + "title:      "+title+"        # 标题\n" + "subtitle:   "+title+"        #副标题\n"
                 + "date:       "+date+"          # 时间\n" + "author:     不学无数                      # 作者\n"
                 + "header-img: img/"+bgPath+"    #这篇文章标题背景图片\n" + "catalog: true                       # 是否归档\n"
-                + "tags:                               #标签\n" + "    - JVM\n" +"    - Java\n"+ "---\n\n";
+                + "tags:                               #标签\n" + "    - 技巧\n" +"    - Java\n"+ "---\n\n";
 
         readTo(source,target,add);
     }

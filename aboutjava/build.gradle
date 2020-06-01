@@ -40,4 +40,8 @@ dependencies {
 
     compile 'net.sourceforge.tess4j:tess4j:3.2.1'
 
+    // ZooKeeper
+    compile ('org.apache.zookeeper:zookeeper:3.4.13')
+
+
 }

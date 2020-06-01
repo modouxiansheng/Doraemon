@@ -14,7 +14,7 @@ spring:
   aop:
     proxy-target-class: true
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/mybatis
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/neo
     username: root
     password: hpy911213
 

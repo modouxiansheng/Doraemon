@@ -19,4 +19,22 @@
     <select id="queryAllUserMap" resultType="map">
         select name as "map_key",age as "map_value" from user_info
     </select>
+    
+    
+    <insert id="insertIntoLoginInfo" parameterType="com.example.springdemo.springdemo.selenium.LoginInfoDto">
+        insert into login_info (login_name,password) values (#{loginName},#{password})
+    </insert>
+    
+    <insert id="insertIntoThumbsUpRecord" parameterType="com.example.springdemo.springdemo.selenium.ThumbsUpRecordDto">
+        insert into thumbs_up_record (url,phones) values (#{url},#{phones})
+    </insert>
+
+    <select id="selectAllPhones" resultType="String">
+        select login_name from login_info
+    </select>
+
+    <select id="selectExitPhone" resultType="String" parameterType="String">
+        select phones from thumbs_up_record where url = #{url}
+    </select>
+    
 </mapper>

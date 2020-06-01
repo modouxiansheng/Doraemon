@@ -1,6 +1,9 @@
 package com.example.springdemo.springdemo.mapper;
 
 import com.example.springdemo.springdemo.domain.User;
+import com.example.springdemo.springdemo.selenium.LoginInfoDto;
+import com.example.springdemo.springdemo.selenium.ThumbsUpRecordDto;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -18,4 +21,12 @@ public interface UserMapper {
     List<User> queryAllUser();
 
     List<Map<String,Integer>> queryAllUserMap();
+
+    void insertIntoLoginInfo(LoginInfoDto loginInfoDto);
+
+    void insertIntoThumbsUpRecord(ThumbsUpRecordDto thumbsUpRecordDto);
+
+    List<String> selectAllPhones();
+
+    String selectExitPhone(@Param("url") String url);
 }

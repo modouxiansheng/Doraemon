@@ -67,5 +67,6 @@ dependencies {
     compile 'com.stripe:stripe-java:18.4.0'
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'org.apache.commons:commons-lang3:3.6'
+    compile 'org.seleniumhq.selenium:selenium-server:3.14.0'
 
 }
