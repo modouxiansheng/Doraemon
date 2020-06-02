@@ -20,6 +20,6 @@ public class TestSeleniumConfig extends SpringdemoApplicationTests {
     @Test
     public void testSele(){
         String url = "https://juejin.im/post/5ed4b62751882543464b14ff";
-        seleiumService.comment(url);
+        seleiumService.pages(url);
     }
 }

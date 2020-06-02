@@ -2,6 +2,7 @@ package com.example.springdemo.springdemo.selenium;
 
 import com.beust.jcommander.internal.Lists;
 import com.example.springdemo.springdemo.mapper.UserMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.util.List;
  * @create: 2020-05-15 18:02
  **/
 @Component
+@Slf4j
 public class SeleniumConfig implements CommandLineRunner {
 
     @Autowired
@@ -25,9 +27,13 @@ public class SeleniumConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        List<String> strings = userMapper.selectAllPhones();
+        try {
+            List<String> strings = userMapper.selectAllPhones();
 
-        allPhones = strings;
+            allPhones = strings;
+        }catch (Exception e){
+            log.error("没有建立此表!!!");
+        }
     }
 
     public List<String> getAllPhones(){

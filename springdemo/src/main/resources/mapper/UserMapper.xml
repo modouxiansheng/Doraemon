@@ -29,6 +29,10 @@
         insert into thumbs_up_record (url,phones) values (#{url},#{phones})
     </insert>
 
+    <update id="updateIntoThumbsUpRecord" parameterType="com.example.springdemo.springdemo.selenium.ThumbsUpRecordDto">
+        UPDATE thumbs_up_record set phones = #{phones} where url = #{url}
+    </update>
+
     <select id="selectAllPhones" resultType="String">
         select login_name from login_info
     </select>

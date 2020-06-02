@@ -25,6 +25,7 @@ public interface UserMapper {
     void insertIntoLoginInfo(LoginInfoDto loginInfoDto);
 
     void insertIntoThumbsUpRecord(ThumbsUpRecordDto thumbsUpRecordDto);
+    void updateIntoThumbsUpRecord(ThumbsUpRecordDto thumbsUpRecordDto);
 
     List<String> selectAllPhones();
 
