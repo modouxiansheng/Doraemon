@@ -84,7 +84,7 @@ public class SeleiumService {
             if (i == SeleiumConstants.LIMIT_NUM){
                 break;
             }
-            sleep(2000);
+            sleep(3000);
             driver.get(url);
             login(s);
             try {

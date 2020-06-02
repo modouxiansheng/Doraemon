@@ -10,5 +10,5 @@ public class SeleiumConstants {
 
     public static String SPLIT = ",";
 
-    public static Integer LIMIT_NUM = 1;
+    public static Integer LIMIT_NUM = 5;
 }
