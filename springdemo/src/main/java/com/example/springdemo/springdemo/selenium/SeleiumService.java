@@ -10,11 +10,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @program: springBootPractice
@@ -30,6 +32,14 @@ public class SeleiumService {
 
     @Autowired
     private SeleniumConfig seleniumConfig;
+
+    @Autowired
+    @Qualifier("xPath")
+    private ClickInterface xPath;
+
+    @Autowired
+    @Qualifier("className")
+    private ClickInterface className;
 
     private static List<String> ALL_PHONES = new ArrayList<>();
 
@@ -88,7 +98,7 @@ public class SeleiumService {
             driver.get(url);
             login(s);
             try {
-                clickByXpath("//*[@class=\"like-btn panel-btn like-adjust with-badge\"]");
+                click("//*[@class=\"like-btn panel-btn like-adjust with-badge\"]",driver,()->xPath);
                 i++;
             }catch (Exception e){
                 e.printStackTrace();
@@ -210,75 +220,26 @@ public class SeleiumService {
     * @Date: 2020/6/2
     */
     public void exit(){
-        clickByXpath("//*[@id=\"juejin\"]/div[2]/div/header/div/nav/ul/li[5]/div");
-        clickByXpath("//*[@id=\"juejin\"]/div[2]/div/header/div/nav/ul/li[5]/ul/div[4]/li");
+        click("//*[@id=\"juejin\"]/div[2]/div/header/div/nav/ul/li[5]/div",driver,()->xPath);
+        click("//*[@id=\"juejin\"]/div[2]/div/header/div/nav/ul/li[5]/ul/div[4]/li",driver,()->xPath);
         driver.switchTo().alert().accept();
     }
 
     public void login(String userName){
 
-//        WebDriverWait wait = new WebDriverWait(driver,10,1);
-//        WebElement element = driver.findElement(By.className("login"));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
         // 点击登录按钮
-        clickByClassName("login");
+        click("login",driver,()->className);
         // 账号
         driver.findElement(By.name("loginPhoneOrEmail")).sendKeys(userName);
         // 密码
         driver.findElement(By.name("loginPassword")).sendKeys("hpy911213");
         // 登录按钮
-        clickByXpath("//*[@id=\"juejin\"]/div[1]/div[3]/form/div[2]/button");
+        click("//*[@id=\"juejin\"]/div[1]/div[3]/form/div[2]/button",driver,()->xPath);
         sleep(1000);
     }
 
-    /**
-     * @Description: 点击-ClassName
-     * @Param: [xpath]
-     * @return: void
-     * @Author: hu_pf
-     * @Date: 2020/6/2
-     */
-    public void clickByClassName(String name){
-        waitDriverByClassName(name);
-        WebElement element = driver.findElement(By.className(name));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-    }
-
-    /**
-     * @Description: 等待页面元素
-     * @Param: [path]
-     * @return: void
-     * @Author: hu_pf
-     * @Date: 2020/6/2
-     */
-    private void waitDriverByClassName(String name){
-        WebDriverWait wait = new WebDriverWait(driver,10,1);
-        wait.until(ExpectedConditions.elementToBeClickable(By.className(name)));
-    }
-
-    /**
-    * @Description: 点击-xpath
-    * @Param: [xpath]
-    * @return: void
-    * @Author: hu_pf
-    * @Date: 2020/6/2
-    */
-    public void clickByXpath(String xpath){
-        waitDriverByXpath(xpath);
-        WebElement element = driver.findElement(By.xpath(xpath));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
-    }
-
-    /**
-    * @Description: 等待页面元素
-    * @Param: [path]
-    * @return: void
-    * @Author: hu_pf
-    * @Date: 2020/6/2
-    */
-    private void waitDriverByXpath(String path){
-        WebDriverWait wait = new WebDriverWait(driver,10,1);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(path)));
+    private void click(String name, WebDriver driver, Supplier<ClickInterface> click){
+        click.get().click(name,driver);
     }
 
 
