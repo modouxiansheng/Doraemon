@@ -22,4 +22,17 @@ public class TestSeleniumConfig extends SpringdemoApplicationTests {
         String url = "https://juejin.im/post/5ed4b62751882543464b14ff";
         seleiumService.pages(url);
     }
+
+    @Test
+    public void getMaxComment() throws Exception {
+
+        seleiumService.getCommentMax("https://juejin.im/pin/5ee0325df265da1bac60ab27");
+    }
+
+
+    @Test
+    public void commentClick() throws Exception{
+
+        seleiumService.comment("https://juejin.im/pin/5ee0325df265da1bac60ab27","嬷嬷茶");
+    }
 }
