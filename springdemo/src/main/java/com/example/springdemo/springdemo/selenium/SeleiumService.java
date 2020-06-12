@@ -272,15 +272,19 @@ public class SeleiumService {
     public void scroll(String comment,String sonComment,Integer stopNum){
         Boolean flag = true;
         int i = 1;
+        Integer befCommentSize = 0;
+        Integer commentSize = 0;
         while (flag){
+            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0,150000)");
+            befCommentSize = commentSize;
             List<WebElement> elements = driver.findElements(By.xpath(comment));
             List<WebElement> elements2 = driver.findElements(By.xpath(sonComment));
             sleep(500);
-            if (stopNum.intValue() == (elements.size()+elements2.size())){
+            commentSize = elements.size()+elements2.size();
+            if (befCommentSize.intValue() == commentSize.intValue()||stopNum.intValue() == commentSize){
                 flag = false;
                 i++;
             }
-            ((JavascriptExecutor) driver).executeScript("window.scrollTo(0,150000)");
         }
     }
 

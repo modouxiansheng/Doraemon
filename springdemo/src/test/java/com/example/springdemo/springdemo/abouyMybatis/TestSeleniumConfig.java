@@ -33,9 +33,9 @@ public class TestSeleniumConfig extends SpringdemoApplicationTests {
     @Test
     public void commentClick() throws Exception{
 
-        seleiumService.comment("https://juejin.im/pin/5ee0325df265da1bac60ab27","嬷嬷茶");
+//        seleiumService.comment("https://juejin.im/pin/5ee0325df265da1bac60ab27","嬷嬷茶");
 //        seleiumService.comment("https://juejin.im/pin/5ee0325df265da1bac60ab27","不学无数的程序员");
 //         18696706091
-//        seleiumService.comment("https://juejin.im/pin/5ee0325df265da1bac60ab27","前端小白X");
+        seleiumService.comment("https://juejin.im/pin/5ee0325df265da1bac60ab27","前端小白X");
     }
 }
