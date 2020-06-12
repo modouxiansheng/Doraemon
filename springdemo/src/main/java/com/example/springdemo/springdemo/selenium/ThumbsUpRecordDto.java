@@ -20,4 +20,6 @@ public class ThumbsUpRecordDto {
     private String url;
 
     private String phones;
+
+    private String userName;
 }

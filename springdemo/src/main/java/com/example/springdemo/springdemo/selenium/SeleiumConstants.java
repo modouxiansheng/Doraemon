@@ -12,5 +12,5 @@ public class SeleiumConstants {
 
     public static Integer LIMIT_NUM = 5;
 
-    public static Integer COMMENT_MAX = 3;
+    public static Integer COMMENT_MAX = 8;
 }

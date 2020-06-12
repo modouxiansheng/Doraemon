@@ -124,6 +124,22 @@ public class SeleiumService {
         return stringBuilder;
     }
 
+    private StringBuilder insertOrUpdate(String url, String exitPhones,String phone,String name){
+        StringBuilder stringBuilder = new StringBuilder(exitPhones);
+        stringBuilder.append(SeleiumConstants.SPLIT+phone);
+        ThumbsUpRecordDto thumbsUpRecordDto = ThumbsUpRecordDto.builder()
+                .url(url)
+                .phones(stringBuilder.toString())
+                .userName(name)
+                .build();
+        if (StringUtils.isEmpty(exitPhones)){
+            userMapper.insertIntoThumbsUpRecord(thumbsUpRecordDto);
+        }else {
+            userMapper.updateIntoThumbsUpRecord(thumbsUpRecordDto);
+        }
+        return stringBuilder;
+    }
+
 
     /**
     * @Description: 评论点赞
@@ -133,7 +149,7 @@ public class SeleiumService {
     * @Date: 2020/6/2
     */
     public void comment(String url,String name) {
-        String exitPhones = userMapper.selectExitPhone(url);
+        String exitPhones = userMapper.selectExitPhoneAndName(url,name);
         ALL_PHONES = seleniumConfig.getAllPhones();
         List<String> exitPhonesList = new ArrayList<>();
         if (!StringUtils.isEmpty(exitPhones)){
@@ -142,9 +158,9 @@ public class SeleiumService {
             exitPhones = StringUtils.EMPTY;
         }
         Integer maxNum = 0;
-        StringBuilder stringBuilder = new StringBuilder();
         for (String s : ALL_PHONES) {
             if (!exitPhonesList.contains(s)) {
+                driver = new FirefoxDriver();
                 driver.get(url);
                 if (maxNum == SeleiumConstants.COMMENT_MAX){
                     break;
@@ -152,12 +168,10 @@ public class SeleiumService {
                 login(s);
                 WebDriverWait wait = new WebDriverWait(driver, 10, 1);
                 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'action-box sticky')]/div[2]")));
-//                String num = driver.findElement(By.xpath("//*[@id=\"juejin\"]/div[2]/main/div[3]/div[1]/div/div[5]/div/div[2]/div/span")).getText();
                 sleep(1000);
                 String num = driver.findElement(By.xpath("//div[contains(@class, 'action-box sticky')]/div[2]")).getText();
                 scroll("//*[@class=\"user-content-box\"]", "//*[@class=\"content-box comment-divider-line\"]", Integer.valueOf(num));
                 List<WebElement> elements = driver.findElements(By.xpath("//*[@class=\"content-box comment-divider-line\"]"));
-//                List<WebElement> elements = driver.findElements(By.xpath("//*[@class=\"user-content-box\"]"));
                 for (WebElement element : elements) {
                     String text = element.findElement(By.xpath(".//*[@class=\"username ellipsis\"]")).getText();
                     if (name.equals(text)) {
@@ -169,9 +183,9 @@ public class SeleiumService {
                         break;
                     }
                 }
-                exitPhones = insertOrUpdate(url,exitPhones,s).toString();
-                exit();
-//                driver.close();
+                exitPhones = insertOrUpdate(url,exitPhones,s,name).toString();
+//                exit();
+                driver.close();
             }
         }
     }

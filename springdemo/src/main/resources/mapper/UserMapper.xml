@@ -26,11 +26,20 @@
     </insert>
     
     <insert id="insertIntoThumbsUpRecord" parameterType="com.example.springdemo.springdemo.selenium.ThumbsUpRecordDto">
-        insert into thumbs_up_record (url,phones) values (#{url},#{phones})
+        insert into thumbs_up_record (url,phones,user_name) values (#{url},#{phones},#{userName})
     </insert>
 
     <update id="updateIntoThumbsUpRecord" parameterType="com.example.springdemo.springdemo.selenium.ThumbsUpRecordDto">
-        UPDATE thumbs_up_record set phones = #{phones} where url = #{url}
+        UPDATE thumbs_up_record set phones = #{phones}
+        <where>
+            <if test="url != null and url !=''">
+                url = #{url}
+            </if>
+            <if test="userName != null and userName !=''">
+                and user_name = #{userName}
+            </if>
+        </where>
+
     </update>
 
     <select id="selectAllPhones" resultType="String">
@@ -40,5 +49,10 @@
     <select id="selectExitPhone" resultType="String" parameterType="String">
         select phones from thumbs_up_record where url = #{url}
     </select>
+
+    <select id="selectExitPhoneAndName" resultType="String" parameterType="String">
+        select phones from thumbs_up_record where url = #{url} and user_name = #{userName}
+    </select>
+
     
 </mapper>

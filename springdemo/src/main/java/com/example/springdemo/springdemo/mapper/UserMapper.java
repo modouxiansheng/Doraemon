@@ -30,4 +30,5 @@ public interface UserMapper {
     List<String> selectAllPhones();
 
     String selectExitPhone(@Param("url") String url);
+    String selectExitPhoneAndName(@Param("url") String url,@Param("userName") String userName);
 }
