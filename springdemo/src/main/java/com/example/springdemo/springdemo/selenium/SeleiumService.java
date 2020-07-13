@@ -43,7 +43,7 @@ public class SeleiumService {
 
     private static List<String> ALL_PHONES = new ArrayList<>();
 
-    private static WebDriver driver;
+    public static WebDriver driver;
 
     static {
         driver = new FirefoxDriver();
@@ -124,7 +124,7 @@ public class SeleiumService {
         return stringBuilder;
     }
 
-    private StringBuilder insertOrUpdate(String url, String exitPhones,String phone,String name){
+    public StringBuilder insertOrUpdate(String url, String exitPhones,String phone,String name){
         StringBuilder stringBuilder = new StringBuilder(exitPhones);
         stringBuilder.append(SeleiumConstants.SPLIT+phone);
         ThumbsUpRecordDto thumbsUpRecordDto = ThumbsUpRecordDto.builder()
@@ -142,13 +142,13 @@ public class SeleiumService {
 
 
     /**
-    * @Description: 评论点赞
+    * @Description: 评论中内容点赞
     * @Param: [url]
     * @return: void
     * @Author: hu_pf
     * @Date: 2020/6/2
     */
-    public void comment(String url,String name) {
+    public void comment(String url,String name,FeiDian invoke) {
         String exitPhones = userMapper.selectExitPhoneAndName(url,name);
         ALL_PHONES = seleniumConfig.getAllPhones();
         List<String> exitPhonesList = new ArrayList<>();
@@ -158,36 +158,30 @@ public class SeleiumService {
             exitPhones = StringUtils.EMPTY;
         }
         Integer maxNum = 0;
+        ALL_PHONES.removeAll(exitPhonesList);
         for (String s : ALL_PHONES) {
-            if (!exitPhonesList.contains(s)) {
-                driver = new FirefoxDriver();
-                driver.get(url);
-                if (maxNum == SeleiumConstants.COMMENT_MAX){
-                    break;
-                }
-                login(s);
-                WebDriverWait wait = new WebDriverWait(driver, 10, 1);
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[contains(@class, 'action-box sticky')]/div[2]")));
-                sleep(1000);
-                String num = driver.findElement(By.xpath("//div[contains(@class, 'action-box sticky')]/div[2]")).getText();
-                scroll("//*[@class=\"user-content-box\"]", "//*[@class=\"content-box comment-divider-line\"]", Integer.valueOf(num));
-                List<WebElement> elements = driver.findElements(By.xpath("//*[@class=\"content-box comment-divider-line\"]"));
-                for (WebElement element : elements) {
-                    String text = element.findElement(By.xpath(".//*[@class=\"username ellipsis\"]")).getText();
-                    if (name.equals(text)) {
-                        WebElement webElement = getWebElement(element, ".//*[@class=\"like-action action\"]");
-                        if (webElement != null) {
-                            webElement.click();
-                            maxNum++;
-                        }
-                        break;
-                    }
-                }
-                exitPhones = insertOrUpdate(url,exitPhones,s,name).toString();
-//                exit();
-                driver.close();
+            driver = new FirefoxDriver();
+            driver.get(url);
+            if (maxNum == SeleiumConstants.COMMENT_MAX){
+                break;
             }
+            login(s);
+            maxNum = invoke.invoke(name, maxNum);
+            exitPhones = insertOrUpdate(url,exitPhones,s,name).toString();
+//                exit();
+            driver.close();
         }
+    }
+
+    /**
+    * @Description: 评论本身点赞
+    * @Param: []
+    * @return: void
+    * @Author: hu_pf
+    * @Date: 2020/7/10
+    */
+    public void commentSend(){
+
     }
 
     public WebElement getWebElement(WebElement element,String xpath){
@@ -281,9 +275,11 @@ public class SeleiumService {
             List<WebElement> elements2 = driver.findElements(By.xpath(sonComment));
             sleep(500);
             commentSize = elements.size()+elements2.size();
-            if (befCommentSize.intValue() == commentSize.intValue()||stopNum.intValue() == commentSize){
-                flag = false;
+            if (befCommentSize.intValue() == commentSize.intValue()){
                 i++;
+            }
+            if ((befCommentSize.intValue() == commentSize.intValue()&&i>5)||stopNum.intValue() == commentSize){
+                flag = false;
             }
         }
     }
